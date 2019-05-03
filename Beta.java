@@ -4,7 +4,8 @@ public class Beta extends Alien{
 	
 	public Beta() {
 		sprite = new ImageIcon("src/beta.png").getImage();
-		kind = 2;
+		kind = 1;
+		speed = 3;
 	}
 	
 	
@@ -15,15 +16,16 @@ public class Beta extends Alien{
 	}
 
 
-	public void move(int distance) {
-		this.setxPos(this.getxPos()+distance);
-	}
-
-
-	@Override
-	public void morir(int health) {
-		// TODO Auto-generated method stub
+	public void move() {
 		
+		if(this.getxPos()/52 % 2 == 0) {
+			this.setyPos(this.getyPos()-5);
+		}
+		else {
+			this.setyPos(this.getyPos()+5);
+		}
+		this.setxPos(this.getxPos()+this.getSpeed());
 	}
+
 
 }

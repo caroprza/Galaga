@@ -15,8 +15,7 @@ public class Gamma extends Alien{
 	}
 
 	
-	public void move(int distance) {
-		// TODO Auto-generated method stub
+	public void move() {
 		
 	}
 
