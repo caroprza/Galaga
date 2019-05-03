@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
 
 public class Nave {
 	private int speed, health;
-	private Bullet bullets[];
+	public Bullet bullets[];
 	private int xPos, yPos;
 	private Image sprite;
 	
@@ -13,15 +13,18 @@ public class Nave {
 		int kind;
 		boolean isAvailable;
 		int ammo;
+		int xPos, yPos;
+		Image sprite;
 		
 		public Bullet() {
-			
+			sprite = new ImageIcon("src/bullet-1").getImage();
 		}
 		
 		public Bullet(int kind, boolean isAvailable, int ammo) {
 			this.kind = kind;
 			this.isAvailable = isAvailable;
 			this.ammo = ammo;
+			sprite = new ImageIcon("src/bullet-"+kind).getImage();
 		}
 		
 		
@@ -30,12 +33,17 @@ public class Nave {
 	public Nave() {
 		sprite = new ImageIcon("src/navecita.png").getImage();
 		bullets = new Bullet[3];
-		speed = 6;
+		speed = 10;
 		bullets[0] = new Bullet(1,true,200);
 		bullets[1] = new Bullet();
 		bullets[2] = new Bullet();
 		xPos = 300;
 		yPos = 300;
+	}
+	
+	public void shoot(int activeGun) {
+		this.bullets[activeGun].ammo -= 1;
+		
 	}
 
 	public int getSpeed() {
@@ -77,6 +85,7 @@ public class Nave {
 	public void setSprite(Image sprite) {
 		this.sprite = sprite;
 	}
+
 	
 	
 	

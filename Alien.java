@@ -11,7 +11,7 @@ public abstract class Alien {
 		sprite = new ImageIcon("src/alfa.png").getImage();
 	}
 	
-	public abstract void move(int distance);
+	public abstract void move();
 
 	public int getSpeed() {
 		return speed;

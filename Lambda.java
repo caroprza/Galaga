@@ -16,7 +16,7 @@ public class Lambda extends Alien{
 
 
 
-	public void move(int distance) {
+	public void move() {
 		// TODO Auto-generated method stub
 		
 	}
