@@ -30,12 +30,12 @@ public class Nave {
 	public Nave() {
 		sprite = new ImageIcon("src/navecita.png").getImage();
 		bullets = new Bullet[3];
-		speed = 6;
+		speed = 10;
 		bullets[0] = new Bullet(1,true,200);
 		bullets[1] = new Bullet();
 		bullets[2] = new Bullet();
-		xPos = 300;
-		yPos = 300;
+		xPos = 550;
+		yPos = 800;
 	}
 
 	public int getSpeed() {

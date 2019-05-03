@@ -12,6 +12,7 @@ public abstract class Alien {
 	}
 	
 	public abstract void move(int distance);
+	public abstract void morir(int health);
 
 	public int getSpeed() {
 		return speed;

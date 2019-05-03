@@ -18,5 +18,9 @@ public class Alfa extends Alien{
 	public void move(int distance) {
 		this.setxPos(this.getxPos()+distance);
 	}
+	
+	public void morir(int health) {
+		
+	}
 
 }

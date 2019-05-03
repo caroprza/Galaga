@@ -19,4 +19,11 @@ public class Beta extends Alien{
 		this.setxPos(this.getxPos()+distance);
 	}
 
+
+	@Override
+	public void morir(int health) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
