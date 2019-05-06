@@ -13,7 +13,7 @@ public class Bullet {
 			this.kind = kind;
 			this.xPos = xPos;
 			this.yPos = yPos;
-			this.sprite = new ImageIcon("src/bullet-" + kind + ".png").getImage();
+			this.sprite = new ImageIcon("bullet-" + kind + ".png").getImage();
 			if(kind==1) {
 				this.width = 10;
 				this.height = 20;
@@ -23,11 +23,11 @@ public class Bullet {
 			if(kind==2) {
 				this.width = 20;
 				this.height = 20;
-				this.speed = 8;
+				this.speed = 5;
 				this.damage = 10;
 			}
 			if(kind==3) {
-				this.width = 10;
+				this.width = 20;
 				this.height = 100;
 				this.speed = 20;
 				this.damage = 30;

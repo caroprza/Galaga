@@ -1,20 +1,37 @@
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Ventana extends JFrame{
 	
-	public Ventana() {
-		super("Gala");
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		Nivel nivel1 = new Nivel();
-		this.add(nivel1);
+	public int width, height;
+	private JPanel currentScreen;
+	
+	public Ventana(int width, int height) {
+		super();
+		this.width = width;
+		this.height = height;
+		this.setPreferredSize(new Dimension(width, height));
+		
+		//Debería poderse cambiar solo el número de nivel y no el objeto, usar herencia de nivel u otra cosa.
+		currentScreen = new HomeScreen(this);
+		this.add(currentScreen);
 		this.pack();
 		this.setVisible(true);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 	public static void main(String[] args) {
-		Ventana v = new Ventana();
+		Ventana v = new Ventana(900, 700);
 	}
 	
+	void setCurrentScreen(JPanel current) {
+		this.currentScreen = current;
+	}
 	
+	JPanel getCurrentScreen() {
+		return this.currentScreen; 
+	}
 	
 }

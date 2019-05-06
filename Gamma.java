@@ -3,7 +3,7 @@ import javax.swing.ImageIcon;
 public class Gamma extends Alien{
 
 	public Gamma() {
-		sprite = new ImageIcon("src/gamma.png").getImage();
+		sprite = new ImageIcon("gamma.png").getImage();
 		kind = 2;
 	}
 	

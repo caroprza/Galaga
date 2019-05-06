@@ -3,7 +3,7 @@ import javax.swing.ImageIcon;
 public class Beta extends Alien{
 	
 	public Beta() {
-		sprite = new ImageIcon("src/beta.png").getImage();
+		sprite = new ImageIcon("beta.png").getImage();
 		kind = 1;
 		speed = 3;
 	}
