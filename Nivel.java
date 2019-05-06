@@ -21,15 +21,15 @@ public class Nivel extends JPanel implements KeyListener, Runnable{
 	private Thread hilo;
 	private int activeGun, height, width, level, power;
 	
-	public Nivel() {
+	public Nivel(Ventana v) {
 		super();
 		this.setFocusable(true);
 		this.addKeyListener(this);
 		this.requestFocusInWindow();
-		this.width = 1200;
-		this.height = 900;
+		this.width = 1000;
+		this.height = 800;
 		this.setPreferredSize(new Dimension(width, height));
-		this.bg = new ImageIcon("src/space.gif").getImage();
+		this.bg = new ImageIcon("space.gif").getImage();
 		this.level = 5;
 		this.power= 0;
 		aliens = new ArrayList<Alfa>();
@@ -59,35 +59,34 @@ public class Nivel extends JPanel implements KeyListener, Runnable{
 			g.drawImage(aliens.get(i).getSprite(), aliens.get(i).getxPos(), aliens.get(i).getyPos(), aliens.get(i).getWidth(), aliens.get(i).getHeight(), this);
 		}
 		
-		
-		
-		//GUI
-		
-		//Drawing bullet data on top of the screen
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, this.width, 50);
-		g.drawImage(new ImageIcon("src/bullet-1.png").getImage(), 100, 25, 10, 20, this);
-		g.drawImage(new ImageIcon("src/bullet-2.png").getImage(), 130, 25, 30, 30, this);
-		g.drawImage(new ImageIcon("src/bullet-3.png").getImage(), 200, 25, 15, 30, this);
-		
-		g.drawImage(new ImageIcon("src/heart.png").getImage(), 800, 25, this);
-		g.drawImage(new ImageIcon("src/heart.png").getImage(), 860, 25, this);
-		g.drawImage(new ImageIcon("src/heart.png").getImage(), 830, 25, this);
-		
-		g.setColor(Color.YELLOW);
-		g.setFont(new Font("Comic Sans", Font.BOLD, 30));
-		
-		g.drawString(Integer.toString(activeGun), 20, 40);
-		
 		//Bullets
 		for (int i = 0; i < this.nave.bullets.size(); i++) {
 			g.drawImage(this.nave.bullets.get(i).sprite, this.nave.bullets.get(i).xPos, this.nave.bullets.get(i).yPos, this.nave.bullets.get(i).width, this.nave.bullets.get(i).height, this);
 		}
 		
+		//GUI
+		g.setFont(new Font("Atari", Font.CENTER_BASELINE, 30));
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, this.width, 50);
+		
+		
+		//Lives
+		for(int i=0; i<this.nave.getHealth(); i++) {
+			g.drawImage(new ImageIcon("heart.png").getImage(), 850-30*i, 10, this);
+		}
+
 		//Power
-		g.setColor(Color.ORANGE);
-		g.fillRect(300, 10, this.power, 30);
+		g.setColor(Color.MAGENTA);
+		g.fillRect(300, 15, this.power, 20);
 				
+		//Gun
+		g.setColor(Color.YELLOW);
+		g.drawImage(new ImageIcon("bullet-"+ activeGun +".png").getImage(), 60, 15, 20, 20, this);
+		g.drawString(Integer.toString(activeGun), 20, 35);
+		
+		
+		
+		
 		
 		
 	}
@@ -114,7 +113,7 @@ public class Nivel extends JPanel implements KeyListener, Runnable{
 					
 				}
 				
-				
+				//Aliens movement
 				for(int i = 0; i<10; i++) {
 					if(aliens.get(i).getxPos() >= this.width) {
 						aliens.get(i).setSpeed((aliens.get(i).getSpeed() * -1) - 1);
@@ -157,7 +156,15 @@ public class Nivel extends JPanel implements KeyListener, Runnable{
 		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 			if(power>40) {
 				nave.shoot(activeGun);
-				power -= 20;
+				if(activeGun == 1) {
+					power -= 20;
+				}
+				if(activeGun == 2) {
+					power -= 50;
+				}
+				if(activeGun == 3) {
+					power -= 80;
+				}
 			}
 		}
 		

@@ -12,8 +12,9 @@ public class Nave {
 	public ArrayList<Bullet> bullets;
 	
 	public Nave() {
-		sprite = new ImageIcon("src/navecita.png").getImage();
+		sprite = new ImageIcon("navecita.png").getImage();
 		speed = 10;
+		health = 5;
 		xPos = 550;
 		yPos = 800;
 		bullets = new ArrayList<Bullet>();

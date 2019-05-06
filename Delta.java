@@ -3,7 +3,7 @@ import javax.swing.ImageIcon;
 public class Delta extends Alien{
 
 	public Delta() {
-		sprite = new ImageIcon("src/delta.png").getImage();
+		sprite = new ImageIcon("delta.png").getImage();
 		kind = 2;
 	}
 	

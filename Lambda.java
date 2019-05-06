@@ -3,7 +3,7 @@ import javax.swing.ImageIcon;
 public class Lambda extends Alien{
 	
 	public Lambda() {
-		sprite = new ImageIcon("src/lambda.png").getImage();
+		sprite = new ImageIcon("lambda.png").getImage();
 		kind = 5;
 	}
 	
