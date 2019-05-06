@@ -1,14 +1,20 @@
 import java.awt.Image;
+import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
 public abstract class Alien {
 	protected int speed, health, kind;
-	protected int xPos, yPos;
+	protected int xPos, yPos, width, height;
 	protected Image sprite;
+	protected Rectangle boxCollider;
 	
 	public Alien() {
-		sprite = new ImageIcon("src/alfa.png").getImage();
+		this.sprite = new ImageIcon("src/alfa.png").getImage();
+		this.width = 80;
+		this.height = 80;
+		boxCollider = new Rectangle(this.width, this.height);
+		
 	}
 	
 	public abstract void move();
@@ -52,6 +58,14 @@ public abstract class Alien {
 	
 	public int getKind() {
 		return kind;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 	
 	

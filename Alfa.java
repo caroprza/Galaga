@@ -3,9 +3,10 @@ import javax.swing.ImageIcon;
 public class Alfa extends Alien{
 	
 	public Alfa() {
-		sprite = new ImageIcon("src/lambda.png").getImage();
+		sprite = new ImageIcon("src/alfa.png").getImage();
 		kind = 1;
 		speed = 3;
+		health = 10;
 	}
 	
 	

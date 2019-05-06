@@ -1,17 +1,14 @@
-import java.awt.Dimension;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class Ventana extends JFrame{
 	
 	public Ventana() {
-		super();
-		Panel p = new Panel();
-		this.add(p);
+		super("Gala");
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		Nivel nivel1 = new Nivel();
+		this.add(nivel1);
 		this.pack();
 		this.setVisible(true);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 	public static void main(String[] args) {
