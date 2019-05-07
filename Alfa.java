@@ -28,9 +28,6 @@ public class Alfa extends Alien{
 		this.setxPos(this.getxPos()+this.getSpeed());
 	}
 	
-	public void morir(int health) {
-		
-	}
 
 
 }
