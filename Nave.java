@@ -6,8 +6,7 @@ import javax.swing.ImageIcon;
 
 
 public class Nave {
-	private int speed, health;
-	private int xPos, yPos;
+	private int xPos, yPos, speed, lives;
 	private Image sprite;
 	public ArrayList<Bullet> bullets;
 	
@@ -16,7 +15,11 @@ public class Nave {
 		speed = 10;
 		xPos = 550;
 		yPos = 800;
+		lives = 3;
 		bullets = new ArrayList<Bullet>();
+		for (int i = 0; i < 10; i++) {
+			bullets.add(new Bullet(1,0,0));
+		}
 	}
 	
 	public void shoot(int activeGun) {
@@ -29,14 +32,6 @@ public class Nave {
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
-	}
-
-	public int getHealth() {
-		return health;
-	}
-
-	public void setHealth(int health) {
-		this.health = health;
 	}
 
 	public int getxPos() {
@@ -62,6 +57,16 @@ public class Nave {
 	public void setSprite(Image sprite) {
 		this.sprite = sprite;
 	}
+
+	public int getLives() {
+		return lives;
+	}
+
+	public void setLives(int lives) {
+		this.lives = lives;
+	}
+	
+	
 		
 	
 }

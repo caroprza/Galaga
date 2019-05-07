@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 
 public class Alfa extends Alien{
@@ -19,18 +21,22 @@ public class Alfa extends Alien{
 
 	public void move() {
 		
+		
+		// Hace movimiento de greca para Alfa
 		if(this.getxPos()/52 % 2 == 0) {
 			this.setyPos(this.getyPos()-5);
+			super.boxCollider.y = this.getyPos();
 		}
 		else {
 			this.setyPos(this.getyPos()+5);
+			super.boxCollider.y = this.getyPos();
 		}
+		
+		
 		this.setxPos(this.getxPos()+this.getSpeed());
+		this.boxCollider.x = this.getxPos();
 	}
 	
-	public void morir(int health) {
-		
-	}
 
 
 }
