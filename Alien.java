@@ -14,10 +14,26 @@ public abstract class Alien {
 		this.width = 80;
 		this.height = 80;
 		boxCollider = new Rectangle(this.xPos, this.yPos, this.width, this.height);
-		
 	}
 	
-	public abstract void move();
+public void move() {
+		
+		
+		// Hace movimiento de greca para Alfa
+		if(this.getxPos()/52 % 2 == 0) {
+			this.setyPos(this.getyPos()-5);
+			this.boxCollider.y = this.getyPos();
+		}
+		else {
+			this.setyPos(this.getyPos()+5);
+			this.boxCollider.y = this.getyPos();
+		}
+		
+		
+		this.setxPos(this.getxPos()+this.getSpeed());
+		this.boxCollider.x = this.getxPos();
+	}
+	
 
 	public int getSpeed() {
 		return speed;

@@ -13,7 +13,7 @@ public class Nave {
 	public Nave() {
 		sprite = new ImageIcon("navecita.png").getImage();
 		speed = 10;
-		health = 5;
+		lives = 5;
 		xPos = 550;
 		yPos = 800;
 		lives = 3;
@@ -24,7 +24,7 @@ public class Nave {
 	}
 	
 	public void shoot(int activeGun) {
-		bullets.add(new Bullet(activeGun, this.xPos + 30, this.yPos + 15));
+		bullets.add(new Bullet(activeGun, this.xPos + 30, this.yPos -200));
 	}
 
 	public int getSpeed() {

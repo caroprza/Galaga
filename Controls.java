@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 public class Controls extends JPanel implements MouseListener{
 	
-	GraphicButton back = new GraphicButton(30, 30, 80, 80, "<--");
+	GraphicButton back = new GraphicButton(30, 30, 80, 80, "Back");
 	Ventana v;
 	
 	

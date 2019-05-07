@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -22,10 +23,10 @@ public class Nivel extends JPanel implements KeyListener, MouseListener, Runnabl
 	private Nave nave;
 	private ArrayList<Alien> aliens;
 	private Image bg;
-	private boolean movingLeft, movingRight, pause;
+	private boolean movingLeft, movingRight, pause, gameOver, youWon;
 	private Thread hilo;
 	private int activeGun, height, width, level, power, threadTime;
-	private GraphicButton exit;
+	private GraphicButton exitBtn;
 	private Ventana v;
 	
 	public Nivel(Ventana v, int level, ArrayList<Alien> aliens) {
@@ -38,11 +39,12 @@ public class Nivel extends JPanel implements KeyListener, MouseListener, Runnabl
 		this.setPreferredSize(new Dimension(width, height));
 		this.bg = new ImageIcon("space.gif").getImage();
 		this.level = level;
-		this.power= 0;
+		this.power= 300;
 		this.aliens = aliens;
 		threadTime = 20;
-		exit = new GraphicButton(315, 300, 300, 100, "SALIR");
+		exitBtn = new GraphicButton(315, 300, 300, 100, "SALIR");
 		this.v = v;
+		
 		
 		nave = new Nave();
 		this.activeGun = 1;
@@ -59,7 +61,10 @@ public class Nivel extends JPanel implements KeyListener, MouseListener, Runnabl
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(this.bg, 0, 0, this.getWidth(), this.getHeight(), this);
-		g.drawImage(nave.getSprite(), nave.getxPos(), this.height-100, 70, 70, this);
+		
+		
+		//Nave
+		g.drawImage(nave.getSprite(), nave.getxPos(), this.height-200, 70, 70, this);
 		
 		
 		//Aliens
@@ -79,7 +84,7 @@ public class Nivel extends JPanel implements KeyListener, MouseListener, Runnabl
 		
 		
 		//Lives
-		for(int i=0; i<this.nave.getHealth(); i++) {
+		for(int i=0; i<this.nave.getLives(); i++) {
 			g.drawImage(new ImageIcon("heart.png").getImage(), 850-30*i, 10, this);
 		}
 
@@ -101,7 +106,30 @@ public class Nivel extends JPanel implements KeyListener, MouseListener, Runnabl
 			g.fillRect(190, 190, 520, 320);
 			g.setColor(Color.BLACK);
 			g.fillRect(200, 200, 500, 300);
-			exit.paint(g2);
+			exitBtn.paint(g2);
+			
+		}
+		
+		if(gameOver) {
+			Graphics2D g2 = (Graphics2D)g;
+			
+			g.setColor(Color.WHITE);
+			g.fillRect(190, 190, 520, 320);
+			g.setColor(Color.BLACK);
+			g.fillRect(200, 200, 500, 300);
+			new GraphicButton(285, 250, 300, 50, "GAME OVER").paint(g2);
+			exitBtn.paint(g2);
+		}
+		
+		if(youWon) {
+			Graphics2D g2 = (Graphics2D)g;
+			
+			g.setColor(Color.WHITE);
+			g.fillRect(190, 190, 520, 320);
+			g.setColor(Color.BLACK);
+			g.fillRect(200, 200, 500, 300);
+			new GraphicButton(275, 250, 300, 50, "¡Has ganado!").paint(g2);
+			exitBtn.paint(g2);
 			
 		}
 		
@@ -163,14 +191,23 @@ public class Nivel extends JPanel implements KeyListener, MouseListener, Runnabl
 					if (aliens.get(i).getyPos() > this.height - 50) {
 						this.aliens.get(i).setyPos(100);
 						this.nave.setLives(this.nave.getLives() - 1);
-						System.out.println(this.nave.getLives());
 						if (this.nave.getLives() <= 0) {
-							System.out.println("GAME OVER");
+							//GAME OVER
+								gameOver = true;
 						}
 					}
 					aliens.get(i).move();
 				
 				}
+				
+				
+				//You WON
+				if(this.aliens.size() == 0) {
+					youWon = true;
+				}
+				
+				
+				
 				this.repaint();
 			}
 			catch (InterruptedException ex){
@@ -204,10 +241,15 @@ public class Nivel extends JPanel implements KeyListener, MouseListener, Runnabl
 			
 		}
 		else if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			//When ESC is pressed, pauses the game, if pressed again, then it resumes.
 			this.threadTime = this.threadTime == 1000? 20 : 1000; 
 			this.pause = this.pause ? false : true; 
 		}
 		
+		//FOR DEBUGGING
+		else if(e.getKeyCode() == KeyEvent.VK_COMMA) {
+			this.threadTime -=1;
+		}
 		
 		
 	}
@@ -250,7 +292,7 @@ public class Nivel extends JPanel implements KeyListener, MouseListener, Runnabl
 
 	public void mouseClicked(MouseEvent e) {
 		Rectangle clic = new  Rectangle(e.getX(), e.getY(), 1, 1);
-		if(exit.intersects(clic)) {
+		if(exitBtn.intersects(clic)) {
 			v.remove(v.getCurrentScreen());
 			HomeScreen a = new HomeScreen(v);
 			v.setCurrentScreen(a);

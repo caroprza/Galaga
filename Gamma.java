@@ -4,9 +4,9 @@ public class Gamma extends Alien{
 	
 	public Gamma() {
 		sprite = new ImageIcon("gamma.png").getImage();
-		kind = 2;
+		kind = 3;
 		speed = 2;
-		health = 100;
+		health = 50;
 	}
 	
 	
@@ -17,15 +17,4 @@ public class Gamma extends Alien{
 	}
 
 
-	public void move() {
-		
-		if(this.getxPos()/52 % 2 == 0) {
-			this.setyPos(this.getyPos()-5);
-		}
-		else {
-			this.setyPos(this.getyPos()+5);
-		}
-		this.setxPos(this.getxPos()+this.getSpeed());
-	}
-	
 }

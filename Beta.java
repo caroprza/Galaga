@@ -6,7 +6,7 @@ public class Beta extends Alien{
 		sprite = new ImageIcon("beta.png").getImage();
 		kind = 2;
 		speed = 3;
-		health = 10;
+		health = 25;
 	}
 	
 	
@@ -17,16 +17,6 @@ public class Beta extends Alien{
 	}
 
 
-	public void move() {
-		
-		if(this.getxPos()/52 % 2 == 0) {
-			this.setyPos(this.getyPos()-5);
-		}
-		else {
-			this.setyPos(this.getyPos()+5);
-		}
-		this.setxPos(this.getxPos()+this.getSpeed());
-	}
 	
 
 }
