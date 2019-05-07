@@ -3,9 +3,10 @@ import javax.swing.ImageIcon;
 public class Beta extends Alien{
 	
 	public Beta() {
-		sprite = new ImageIcon("src/beta.png").getImage();
-		kind = 1;
+		sprite = new ImageIcon("beta.png").getImage();
+		kind = 2;
 		speed = 3;
+		health = 10;
 	}
 	
 	
@@ -26,6 +27,6 @@ public class Beta extends Alien{
 		}
 		this.setxPos(this.getxPos()+this.getSpeed());
 	}
-
+	
 
 }
