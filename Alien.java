@@ -13,7 +13,7 @@ public abstract class Alien {
 		this.sprite = new ImageIcon("alfa.png").getImage();
 		this.width = 80;
 		this.height = 80;
-		boxCollider = new Rectangle(this.width, this.height);
+		boxCollider = new Rectangle(this.xPos, this.yPos, this.width, this.height);
 		
 	}
 	

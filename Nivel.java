@@ -10,6 +10,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -124,12 +126,30 @@ public class Nivel extends JPanel implements KeyListener, MouseListener, Runnabl
 				}
 				
 				//Bullets movement
-				for (int i = 0; i < this.nave.bullets.size(); i++) {
+				
+				
+				for (int i = 10; i < this.nave.bullets.size(); i++) {
 					this.nave.bullets.get(i).yPos -= this.nave.bullets.get(i).speed;
+					this.nave.bullets.get(i).boxCollider.y = this.nave.bullets.get(i).yPos;
+					this.nave.bullets.get(i).boxCollider.x = this.nave.bullets.get(i).xPos;
 					
+					
+					for (int j = 0; j < this.aliens.size(); j++) {
+
+						if (this.nave.bullets.get(i).boxCollider.intersects(this.aliens.get(j).boxCollider)) {
+							this.aliens.get(j).setHealth(this.aliens.get(j).getHealth() - this.nave.bullets.get(i).damage);
+							if (this.aliens.get(j).getHealth() <= 0) {
+								this.aliens.remove(j);
+								j--;
+							}
+							this.nave.bullets.remove(i);
+							i--;
+						}
+					}
 				}
 				
-				//Aliens movement
+
+				//Alien movement, rebota cuando pasa del width o cuando se va menor a 0
 				for(int i = 0; i<aliens.size(); i++) {
 					if(aliens.get(i).getxPos() >= this.width) {
 						aliens.get(i).setSpeed((aliens.get(i).getSpeed() * -1) - 1);
@@ -140,6 +160,14 @@ public class Nivel extends JPanel implements KeyListener, MouseListener, Runnabl
 						aliens.get(i).setyPos(aliens.get(i).getyPos() + 30);
 					}
 					
+					if (aliens.get(i).getyPos() > this.height - 50) {
+						this.aliens.get(i).setyPos(100);
+						this.nave.setLives(this.nave.getLives() - 1);
+						System.out.println(this.nave.getLives());
+						if (this.nave.getLives() <= 0) {
+							System.out.println("GAME OVER");
+						}
+					}
 					aliens.get(i).move();
 				
 				}
