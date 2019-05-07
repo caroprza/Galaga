@@ -32,6 +32,8 @@ public class Controls extends JPanel implements MouseListener{
 		g.drawString("-Te mueves con las flechas", 100, 200);
 		g.drawString("-Disparas con [SPACE]", 100, 250);
 		g.drawString("-Cambias de bala con [1], [2] o [3]", 100, 300);
+		g.drawString("-Activa el poder con [0]", 100, 350);
+
 		g.drawString("¡No dejes que los aliens lleguen a tu planeta!", 100, 400);
 
 	}

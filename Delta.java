@@ -1,10 +1,12 @@
 import javax.swing.ImageIcon;
 
 public class Delta extends Alien{
-
+	
 	public Delta() {
 		sprite = new ImageIcon("delta.png").getImage();
-		kind = 2;
+		kind = 4;
+		speed = 5;
+		health = 10;
 	}
 	
 	
@@ -14,10 +16,18 @@ public class Delta extends Alien{
 		this.yPos = yPos;
 	}
 
-	
+
 	public void move() {
-		// TODO Auto-generated method stub
 		
+		if(this.getxPos()/52 % 2 == 0) {
+			this.setyPos(this.getyPos()-5);
+		}
+		else {
+			this.setyPos(this.getyPos()+5);
+		}
+		this.setxPos(this.getxPos()+this.getSpeed());
 	}
+	
+
 
 }

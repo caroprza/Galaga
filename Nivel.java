@@ -4,24 +4,29 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class Nivel extends JPanel implements KeyListener, Runnable{
+public class Nivel extends JPanel implements KeyListener, MouseListener, Runnable{
 	
 	private Nave nave;
-	private ArrayList<Alfa> aliens;
+	private ArrayList<Alien> aliens;
 	private Image bg;
-	private boolean movingLeft, movingRight;
+	private boolean movingLeft, movingRight, pause;
 	private Thread hilo;
-	private int activeGun, height, width, level, power;
+	private int activeGun, height, width, level, power, threadTime;
+	private GraphicButton exit;
+	private Ventana v;
 	
-	public Nivel(Ventana v) {
+	public Nivel(Ventana v, int level, ArrayList<Alien> aliens) {
 		super();
 		this.setFocusable(true);
 		this.addKeyListener(this);
@@ -30,23 +35,23 @@ public class Nivel extends JPanel implements KeyListener, Runnable{
 		this.height = 800;
 		this.setPreferredSize(new Dimension(width, height));
 		this.bg = new ImageIcon("space.gif").getImage();
-		this.level = 5;
+		this.level = level;
 		this.power= 0;
-		aliens = new ArrayList<Alfa>();
+		this.aliens = aliens;
+		threadTime = 20;
+		exit = new GraphicButton(315, 300, 300, 100, "SALIR");
+		this.v = v;
 		
 		nave = new Nave();
 		this.activeGun = 1;
-		Random r = new Random();
+		
 		
 		hilo = new Thread(this);
 		hilo.start();
 		
+		this.addMouseListener(this);
 		
 		
-		//Creates all the aliens with random positions inside the playing area
-		for(int i=0; i<10; i++) {
-			aliens.add(new Alfa(r.nextInt(this.width), r.nextInt(this.height-450)+50));
-		}
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -54,8 +59,9 @@ public class Nivel extends JPanel implements KeyListener, Runnable{
 		g.drawImage(this.bg, 0, 0, this.getWidth(), this.getHeight(), this);
 		g.drawImage(nave.getSprite(), nave.getxPos(), this.height-100, 70, 70, this);
 		
+		
 		//Aliens
-		for(int i=0; i<10; i++) {
+		for(int i=0; i<aliens.size(); i++) {
 			g.drawImage(aliens.get(i).getSprite(), aliens.get(i).getxPos(), aliens.get(i).getyPos(), aliens.get(i).getWidth(), aliens.get(i).getHeight(), this);
 		}
 		
@@ -85,7 +91,17 @@ public class Nivel extends JPanel implements KeyListener, Runnable{
 		g.drawString(Integer.toString(activeGun), 20, 35);
 		
 		
-		
+		//Pause
+		if(pause) {
+			Graphics2D g2 = (Graphics2D)g;
+			
+			g.setColor(Color.WHITE);
+			g.fillRect(190, 190, 520, 320);
+			g.setColor(Color.BLACK);
+			g.fillRect(200, 200, 500, 300);
+			exit.paint(g2);
+			
+		}
 		
 		
 		
@@ -94,7 +110,7 @@ public class Nivel extends JPanel implements KeyListener, Runnable{
 	public void run() {
 		while(true) {
 			try {
-				Thread.sleep(20);
+				Thread.sleep(this.threadTime);
 				
 				if(power < 300) {
 					power++;
@@ -114,7 +130,7 @@ public class Nivel extends JPanel implements KeyListener, Runnable{
 				}
 				
 				//Aliens movement
-				for(int i = 0; i<10; i++) {
+				for(int i = 0; i<aliens.size(); i++) {
 					if(aliens.get(i).getxPos() >= this.width) {
 						aliens.get(i).setSpeed((aliens.get(i).getSpeed() * -1) - 1);
 						aliens.get(i).setyPos(aliens.get(i).getyPos() + 30);
@@ -146,6 +162,26 @@ public class Nivel extends JPanel implements KeyListener, Runnable{
 		else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 			movingLeft = true;
 		}
+		else if(e.getKeyCode() == KeyEvent.VK_0) {
+			//When 0 is pressed, you get a slow mo effect by changing the thread sleep rate, you get charged 150 power units.
+			//If it is already slow, you only change the sleep rate again.
+			if(this.threadTime == 50) {
+				this.threadTime = 20;
+			}
+			else if(this.power >= 150) {
+				this.threadTime = this.threadTime == 50? 20 : 50;
+				this.power -= 150;
+				this.power += 50;
+			}
+			
+		}
+		else if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			this.threadTime = this.threadTime == 1000? 20 : 1000; 
+			this.pause = this.pause ? false : true; 
+		}
+		
+		
+		
 	}
 	
 	public void keyReleased(KeyEvent e) {
@@ -175,18 +211,51 @@ public class Nivel extends JPanel implements KeyListener, Runnable{
 			if(2 <= this.level) {
 				this.activeGun = 2;
 			}
-			else {
-				System.out.println("NO HAY EN LA TIENDA MA");
-			}
 
 		}
 		if(e.getKeyCode() == KeyEvent.VK_3) {
 			if(3 <= this.level) {
 				this.activeGun = 3;
 			}
-			else {
-				System.out.println("NO HAY EN LA TIENDA MA");
-			}
 		}
 	}
+
+	public void mouseClicked(MouseEvent e) {
+		Rectangle clic = new  Rectangle(e.getX(), e.getY(), 1, 1);
+		if(exit.intersects(clic)) {
+			v.remove(v.getCurrentScreen());
+			HomeScreen a = new HomeScreen(v);
+			v.setCurrentScreen(a);
+			v.add(v.getCurrentScreen());
+			a.requestFocusInWindow();
+			v.revalidate();
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
 }
