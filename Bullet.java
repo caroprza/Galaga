@@ -24,12 +24,12 @@ public class Bullet {
 				this.width = 20;
 				this.height = 20;
 				this.speed = 5;
-				this.damage = 10;
+				this.damage = 20;
 			}
 			if(kind==3) {
 				this.width = 20;
 				this.height = 100;
-				this.speed = 20;
+				this.speed = 25;
 				this.damage = 30;
 			}
 			

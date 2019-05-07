@@ -31,10 +31,6 @@ public class HomeScreen extends JPanel implements MouseListener{
 		this.requestFocus();
 		this.v = v;
 		this.bg = new ImageIcon("b.gif").getImage();
-		
-
-		
-		
 	}
 	
 	
@@ -67,7 +63,7 @@ public class HomeScreen extends JPanel implements MouseListener{
 		Rectangle clic = new  Rectangle(e.getX(), e.getY(), 1, 1);
 		if (play.intersects(clic)) {
 			v.remove(v.getCurrentScreen());
-			Nivel a = new Nivel(v, 3, randomAliens(0, 2, 4, 1, 8));
+			LevelChooser a = new LevelChooser(v);
 			v.setCurrentScreen(a);
 			v.add(v.getCurrentScreen());
 			a.requestFocusInWindow();
@@ -104,28 +100,5 @@ public class HomeScreen extends JPanel implements MouseListener{
 		
 	}
 
-	public static ArrayList<Alien> randomAliens(int nAlfa, int nBeta, int nGamma, int nDelta, int nLambda){
-		
-		ArrayList<Alien> aliens = new ArrayList<Alien>();
-		Random r = new Random();
-		
-		for(int i=0; i<nAlfa; i++) {
-			aliens.add(new Alfa(r.nextInt(900), r.nextInt(800-450)+50));
-		}
-		for(int i=0; i<nBeta; i++) {
-			aliens.add(new Beta(r.nextInt(900), r.nextInt(800-450)+50));
-		}
-		for(int i=0; i<nGamma; i++) {
-			aliens.add(new Gamma(r.nextInt(900), r.nextInt(800-450)+50));
-		}
-		for(int i=0; i<nDelta; i++) {
-			aliens.add(new Delta(r.nextInt(900), r.nextInt(800-450)+50));
-		}
-		for(int i=0; i<nLambda; i++) {
-			aliens.add(new Lambda(r.nextInt(900), r.nextInt(800-450)+50));
-		}
-		
-		return aliens;
-	}
 	
 }

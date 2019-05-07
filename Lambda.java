@@ -4,9 +4,9 @@ public class Lambda extends Alien{
 	
 	public Lambda() {
 		sprite = new ImageIcon("lambda.png").getImage();
-		kind = 2;
+		kind = 5;
 		speed = 4;
-		health = 50;
+		health = 100;
 	}
 	
 	
@@ -17,17 +17,6 @@ public class Lambda extends Alien{
 	}
 
 
-	public void move() {
-		
-		if(this.getxPos()/52 % 2 == 0) {
-			this.setyPos(this.getyPos()-5);
-		}
-		else {
-			this.setyPos(this.getyPos()+5);
-		}
-		this.setxPos(this.getxPos()+this.getSpeed());
-	}
-	
 
 
 }

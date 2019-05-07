@@ -6,7 +6,7 @@ public class Delta extends Alien{
 		sprite = new ImageIcon("delta.png").getImage();
 		kind = 4;
 		speed = 5;
-		health = 10;
+		health = 30;
 	}
 	
 	
@@ -17,16 +17,6 @@ public class Delta extends Alien{
 	}
 
 
-	public void move() {
-		
-		if(this.getxPos()/52 % 2 == 0) {
-			this.setyPos(this.getyPos()-5);
-		}
-		else {
-			this.setyPos(this.getyPos()+5);
-		}
-		this.setxPos(this.getxPos()+this.getSpeed());
-	}
 	
 
 
